@@ -1,5 +1,4 @@
 #include <ESP8266WiFi.h>                    //https://github.com/esp8266/Arduino
-//needed for library
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
 #include <WiFiManager.h>                    //https://github.com/tzapu/WiFiManager
@@ -14,7 +13,6 @@ DHT dht(DHTPIN, DHTTYPE);                   // Initialize DHT sensor.
 IPAddress mqtt_server(192, 168, 1, 68);     //MQTT Broker IP
 WiFiClient espClient;
 PubSubClient client(espClient);
-const char* MQTT_topic = "topic_name";
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 void setup() {
@@ -43,24 +41,20 @@ void reconnect() {
   while (!client.connected()) {
     //Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    if (client.connect("ESP", "username", "geforce4", "dev/test", 0, 0, "livingroom_LED Connected")) {
+    if (client.connect("OutsideWeatherstation", "username", "geforce4", "dev/test", 0, 0, "WeatherStation Connected")) {
       //Serial.println("connected");
       // Once connected, publish an announcement...
       client.publish("dev/test", "Connected to MQTT");
       // ... and resubscribe
-      client.subscribe(MQTT_topic);
-    } else {
-      //Serial.print("failed, rc=");
-      //Serial.print(client.state());
-      //Serial.println(" try again in 5 seconds");
-      // Wait 3 seconds before retrying
-      delay(2000);
-    }
+      //client.subscribe(MQTT_topic);
+    } 
   }
 }
 //------------------------------------------------------------------------------------------------------------------------------------------
 void loop() {
   char charVal[10];
+
+  //housekeeping if any of the connections drop
   if (!client.connected())              reconnect();
   if (WiFi.status() != WL_CONNECTED)    manage_WiFi();
   
@@ -72,5 +66,5 @@ void loop() {
   dtostrf(t, 4, 4, charVal);
   client.publish("weather_T", charVal);
   
-  ESP.deepSleep(30 * 1000000, WAKE_RF_DEFAULT);
+  ESP.deepSleep(300 * 1000000, WAKE_RF_DEFAULT);
 }
