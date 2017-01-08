@@ -1,4 +1,5 @@
 #include <ArduinoOTA.h>
+
 void manage_WiFi()
 {
   pinMode(Reset_Pin, INPUT);
@@ -12,7 +13,7 @@ void manage_WiFi()
   if(digitalRead(Reset_Pin) == LOW )
   {
     wifiManager.resetSettings();
-    //Serial.print("Reset Detected");
+    Serial.print("Reset Detected");
   }
 
   //give a static ip to the server
@@ -21,14 +22,14 @@ void manage_WiFi()
   //sets timeout until configuration portal gets turned off
   //useful to make it all retry or go to sleep
   //in seconds
-  wifiManager.setTimeout(180);
+  wifiManager.setTimeout(300);
 
   //fetches ssid and pass and tries to connect
   //if it does not connect it starts an access point with the specified name
   //here  "AutoConnectAP"
   //and goes into a blocking loop awaiting configuration
   if (!wifiManager.autoConnect("IoT_Sensor_Setup")) {
-    //Serial.println("failed to connect and hit timeout");
+    Serial.println("failed to connect and hit timeout");
     delay(3000);
     //reset and try again, or maybe put it to deep sleep
     ESP.reset();
@@ -36,8 +37,9 @@ void manage_WiFi()
   }
 
   //if you get here you have connected to the WiFi
-  //Serial.println("Connected to WiFi..");
+  Serial.println("connected...yeey :)");
 }
+
 
 void manage_OTA()
 {
@@ -68,4 +70,10 @@ void manage_OTA()
   //Serial.println(WiFi.localIP());
 }
 
-
+void manage_housekeeping()
+{
+  //OTA Handeler 
+  ArduinoOTA.handle();
+  if (!client.connected())              reconnect();
+  if (WiFi.status() != WL_CONNECTED)    manage_WiFi();
+}
