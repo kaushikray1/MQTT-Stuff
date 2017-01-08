@@ -73,7 +73,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   // Switch on the LED if an 1 was received as first character
   if ((char)payload[0] == '1')
     rgb = 0xFFFFFF;
-  else
+  if ((char)payload[0] == '0')
     rgb = 0x000000;
 
   if ((char)payload[0] == '#') // we get RGB data
