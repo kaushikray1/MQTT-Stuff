@@ -1,10 +1,12 @@
 /*
 Code by Kaushik Ray
-ver: 0.1.0
+
 */
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <WiFiManager.h> 
+#include <ArduinoOTA.h>
 
 // Update these with values suitable for your network.
 #define LED_RED     14
@@ -18,6 +20,8 @@ IPAddress mqtt_server(192, 168, 1, 68); //MQTT Broker IP
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+#define Reset_Pin 0                         //pin to reset the wifi config files
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 void setup() {
 
@@ -30,33 +34,15 @@ void setup() {
   digitalWrite(LED_GREEN,   0);
   digitalWrite(LED_BLUE,    0);
 
-  analogWriteFreq(10000);
+  analogWriteFreq(5000);
   analogWriteRange(255);
 
   Serial.begin(115200);
-  setup_wifi();
+  manage_OTA();
+  //setup_wifi();
+  manage_WiFi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-}
-//------------------------------------------------------------------------------------------------------------------------------------------
-void setup_wifi() {
-
-  // We start by connecting to a WiFi network
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
 }
 //------------------------------------------------------------------------------------------------------------------------------------------
 void callback(char* topic, byte* payload, unsigned int length) {
@@ -69,16 +55,18 @@ void callback(char* topic, byte* payload, unsigned int length) {
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
   }
-  
+
   // Switch on the LED if an 1 was received as first character
   if ((char)payload[0] == '1')
     rgb = 0xFFFFFF;
   if ((char)payload[0] == '0')
     rgb = 0x000000;
-
   if ((char)payload[0] == '#') // we get RGB data
     rgb = (uint32_t) strtol((const char *) &payload[1], NULL, 16);
 
+  for (int i = 0; i < length; i++) {
+    payload[i]=0xFF;
+  }
 
   red   = ((rgb >> 16) & 0xFF);
   green = ((rgb >>  8) & 0xFF);
@@ -95,7 +83,7 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    if (client.connect("ESP", "username", "geforce4", "dev/test", 0, 0, "livingroom_LED Connected")) {
+    if (client.connect("livingroom_LED1", "username", "geforce4", "dev/test", 0, 0, "livingroom_LED Connected")) {
       Serial.println("connected");
       // Once connected, publish an announcement...
       client.publish("dev/test", "Connected to MQTT");
@@ -105,16 +93,14 @@ void reconnect() {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
-      // Wait 3 seconds before retrying
+      // Wait 2 seconds before retrying
       delay(2000);
     }
   }
 }
 //------------------------------------------------------------------------------------------------------------------------------------------
-void loop() {
-
-  if (!client.connected()) {
-    reconnect();
-  }
+void loop() 
+{
+  manage_housekeeping();
   client.loop();
 }
