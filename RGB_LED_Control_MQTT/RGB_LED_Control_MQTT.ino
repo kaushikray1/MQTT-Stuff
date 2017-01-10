@@ -1,26 +1,42 @@
 /*
-Code by Kaushik Ray
-
+*Code by Kaushik Ray
+*Free to use however way you want.. Enjoy
 */
+
+/*
+ * You will need 2 libraries "PubSubClient" and "WiFiManager"
+ * 
+ * Hardware requirement FET for pin 12,14,16 for driving the FET to drive the LEDS
+ * When the device is programmed it starts up with a soft AP with the name "IoT_Setup"
+ * Connect to the AP and connect to the desired network
+ * To Reset the Network config connect a push button to GPIO 1 and press it within 1 sec of powerup
+ * change the MQTT server settings as per your need and you are all set. 
+ * A good video to configure MQTT proker on a pi can be found at https://www.youtube.com/watch?v=AsDHEDbyLfg
+ * A good Android MQTT dash is "MQTT Dash" can be found at Google Play. Its a free app with on adds.. 
+ * Enjoy the Freesoftwar...
+ */
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <WiFiManager.h> 
 #include <ArduinoOTA.h>
 
-// Update these with values suitable for your network.
+// Update these with values suitable for your project
 #define LED_RED     14
 #define LED_GREEN   12
 #define LED_BLUE    16
 
-const char* ssid = "Ray";
-const char* password = "ambidextrous2014";
+//MQTT Server Config
 IPAddress mqtt_server(192, 168, 1, 68); //MQTT Broker IP
+const char* Client_ID    = "Unique_client_ID";
+const char* username     = "username";
+const char* password     = "password";
+const char* thing_name   = "thing_name";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-#define Reset_Pin 0                         //pin to reset the wifi config files
+#define Reset_Pin 1                         //pin to reset the wifi config files
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 void setup() {
@@ -39,7 +55,6 @@ void setup() {
 
   Serial.begin(115200);
   manage_OTA();
-  //setup_wifi();
   manage_WiFi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
@@ -83,12 +98,12 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    if (client.connect("livingroom_LED1", "username", "geforce4", "dev/test", 0, 0, "livingroom_LED Connected")) {
+    if (client.connect(Client_ID, username, password, thing_name, 0, 0, Client_ID)) {
       Serial.println("connected");
       // Once connected, publish an announcement...
       client.publish("dev/test", "Connected to MQTT");
       // ... and resubscribe
-      client.subscribe("livingroom_LED");
+      client.subscribe(Client_ID);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());

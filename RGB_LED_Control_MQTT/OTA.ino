@@ -1,3 +1,9 @@
+/*
+*Code by Kaushik Ray
+*Free to use however way you want.. Enjoy
+*/
+
+
 #include <ArduinoOTA.h>
 
 void manage_WiFi()
@@ -28,7 +34,7 @@ void manage_WiFi()
   //if it does not connect it starts an access point with the specified name
   //here  "AutoConnectAP"
   //and goes into a blocking loop awaiting configuration
-  if (!wifiManager.autoConnect("IoT_Sensor_Setup")) {
+  if (!wifiManager.autoConnect("IoT_Setup")) {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
     //reset and try again, or maybe put it to deep sleep
