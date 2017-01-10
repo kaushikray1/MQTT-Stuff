@@ -2,18 +2,44 @@
 *Code by Kaushik Ray
 *Free to use however way you want.. Enjoy
 */
+/*
+The MIT License
+
+Copyright (c) by Kaushik Ray
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
 
 /*
- * You will need 2 libraries "PubSubClient" and "WiFiManager"
- * 
- * Hardware requirement FET for pin 12,14,16 for driving the FET to drive the LEDS
- * When the device is programmed it starts up with a soft AP with the name "IoT_Setup"
- * Connect to the AP and connect to the desired network
- * To Reset the Network config connect a push button to GPIO 1 and press it within 1 sec of powerup
+ * You will need 2 libraries "PubSubClient" and "WiFiManager" thanks to them :) 
+ * https://github.com/knolleary/pubsubclient
+ * https://github.com/tzapu/WiFiManager
+ * Hardware requirement are FET drive for pin 12,14,16 for driving the FET to drive RGB LED Strips
+ * When the device is programmed it starts up with a soft AP with the name "IoT_Setup" (for more info see WifiManager Help)
+ * Connect to the AP and configure the Iot node with SSID and password
+ * To Reset the Network config connect a push button to GPIO 1 and Ground. Holding the button at powerup will reset Wifi config file
  * change the MQTT server settings as per your need and you are all set. 
  * A good video to configure MQTT proker on a pi can be found at https://www.youtube.com/watch?v=AsDHEDbyLfg
- * A good Android MQTT dash is "MQTT Dash" can be found at Google Play. Its a free app with on adds.. 
- * Enjoy the Freesoftwar...
+ * or to use a online fre broker "io.adafruit.com" or Cloud MQTT can be used. 
+ * A good Android MQTT app that i like is "MQTT Dash" can be found at Google Play. Its a free app with no adds.. 
+ * Enjoy the Free software...
  */
 
 #include <ESP8266WiFi.h>
