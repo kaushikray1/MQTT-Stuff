@@ -68,7 +68,7 @@ void loop() {
  
   float t = dht.readTemperature();         
   dtostrf(t, 4, 4, charVal);
-  client.publish("weather_T", charVal);
+  client.publish("weather_T", charVal,true);
   
-  ESP.deepSleep(300 * 100000, WAKE_RF_DEFAULT);
+  ESP.deepSleep(120 * 1000000, WAKE_RF_DEFAULT);
 }
