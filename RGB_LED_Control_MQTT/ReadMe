@@ -1,23 +1,23 @@
-h2. Required Libraries:
+Required Libraries:
   You will need 2 libraries "PubSubClient" and "WiFiManager" thanks to the authors really appreciate it :)
   Can be found at: 
   https://github.com/knolleary/pubsubclient
   https://github.com/tzapu/WiFiManager
 
-h2. Changes Required in the Code Before Downloading: 
+Changes Required in the Code Before Downloading: 
   Change the MQTT server settings as per your need at the top of the code.
   A good video to configure MQTT broker on a Raspberry pi can be found at 
   https://www.youtube.com/watch?v=AsDHEDbyLfg 
   or to use a online free broker like "io.adafruit.com" or Cloud MQTT 
 
-h2. Hardware requirement are: 
+Hardware requirement are: 
   FET driver on pin 12, 14, 16 for driving the LED FET. I used MCP1407 as FET drivers (8 Pin DIP) and  CSD18542KCS for FETS. These FETS are awesome they run very cold at 12v and I am driving 8, 5m meter 5050 RGB LED strips from SUPERNIGHT from Amazon. I also love these LED Strips as they are super bright, brighter than all the other ones I had before. I am providing a link below. I prefer using a FET driver instead of some pullup resisters as the pullup resister cannot provide enough current during the fast switching of PWM to turn the FET on and off. If a push pull transistor configuration is used the gate voltage is not high enough to open the FET all the way and the FET works in the saturation region (I know you might be thinking the Vth for the FET is 2.5v so 3.3v is more than enough but this voltage for Vth is for a very small current most of the time 250mA). Using the FET in the saturation region will cause it to overheat hindering the efficiency of the circuit.  For my RGB LED Strips I prefer high speed PWM as it makes the LED’s not flicker and prefer to use a rail to rail FET driver with high current output. The FET driver I have used in this project can deliver 6A of current to the FET’s Gate making it a perfect solution for my need.  
   https://www.amazon.com/gp/product/B00DTOAWZ2/ref=oh_aui_detailpage_o09_s00?ie=UTF8&psc=1
   I used a 3.3v LDO converting 12v to 3.3v.It gets pretty hot, plan to change it to a switching supply in future. 
   If you want a push button can be placed between GPIO 1 and ground (its optional for reseting the Node in case a reconfig of the network settings are required)
   I used ESP8266-E12 for these projects. All the GPIO's can be changed as per your need, just look for the pin definations at the top of the code. 
 
-h2. Setup After Hardware and software: 
+Setup After Hardware and software: 
   Step 1:
   When the device is programmed it starts up with a Soft AP with the name "IoT_Setup" (for more info see WifiManager Help)
   Connect to the AP and configure the Iot node with SSID and password.
@@ -36,7 +36,7 @@ Code by Kaushik Ray
 
 -----------------------------------------------------------------------------------------------------------
 
-h2. Lisense
+Lisense
 
 The MIT License
 Copyright (c) by Kaushik Ray
