@@ -1,28 +1,46 @@
-Hardware and Configuration 
+Readme
 
-You will need 2 libraries "PubSubClient" and "WiFiManager" thanks to them :)
+Required Libraries:
+  You will need 2 libraries "PubSubClient" and "WiFiManager" thanks to the authors really appreciate it :)
+  Can be found at: 
+  https://github.com/knolleary/pubsubclient
+  https://github.com/tzapu/WiFiManager
 
-https://github.com/knolleary/pubsubclient
-https://github.com/tzapu/WiFiManager
+Changes Required in the Code Before Downloading: 
+  Change the MQTT server settings as per your need at the top of the code.
+  A good video to configure MQTT broker on a Raspberry pi can be found at 
+  https://www.youtube.com/watch?v=AsDHEDbyLfg 
+  or to use a online free broker like "io.adafruit.com" or Cloud MQTT 
 
-Hardware requirement are FET drive for pin 12,14,16 for driving the FET to drive RGB LED Strips
+Hardware requirement are: 
+  FET driver on pin 12, 14, 16 for driving the LED FET. I used MCP1407 as FET drivers (8 Pin DIP) and  CSD18542KCS for FETS. 
+  These FETS are awesome they run very cold and I am driving 8, 5m meter 5050 RGB LED strips from SUPERNIGHT from Amazon. I love these  
+  LED Strips as they are super bright, brighter than all the other ones I had before. I am providing a link below.  
+  https://www.amazon.com/gp/product/B00DTOAWZ2/ref=oh_aui_detailpage_o09_s00?ie=UTF8&psc=1
+  I used a 3.3v LDO converting 12v to 3.3v.It gets pretty hot, plan to change it to a switching supply in future. 
+  If you want a push button can be placed between GPIO 1 and ground (its optional for reseting the Node in case a reconfig of the 
+  network settings are required)
+  I used ESP8266-E12 for these projects. All the GPIO's can be changed as per your need, just look for the pin definations at the top 
+  of the code. 
 
-When the device is programmed it starts up with a soft AP with the name "IoT_Setup" (for more info see WifiManager Help)
+Setup After Hardware and software: 
+  Step 1:
+  When the device is programmed it starts up with a Soft AP with the name "IoT_Setup" (for more info see WifiManager Help)
+  Connect to the AP and configure the Iot node with SSID and password.
+  To Reset the Network config connect a push button to GPIO 1 and Ground. Holding the button at powerup will reset Wifi config file.
 
-Connect to the AP and configure the Iot node with SSID and password
+  A good Android MQTT app that I like and use is "MQTT Dash" can be found at Google Play. Its a free app with no adds.. Thanks to the Author
+  
+Note: The code also supports OTA update and so next time the code can be directly updated using the network ports.
+    
+---------------------------------------------------------------------------------------------------------------------------------------------------------  
 
-To Reset the Network config connect a push button to GPIO 1 and Ground. Holding the button at powerup will reset Wifi config file
-
-change the MQTT server settings as per your need and you are all set. 
-
-A good video to configure MQTT proker on a pi can be found at 
-https://www.youtube.com/watch?v=AsDHEDbyLfg 
-or to use a online fre broker "io.adafruit.com" or Cloud MQTT can be used. 
-
-A good Android MQTT app that i like is "MQTT Dash" can be found at Google Play. Its a free app with no adds.. 
+Hope you like this project and please leave comments and suggestions. Hit Stars if you love it.. 
 
 Enjoy the Free software...
 Code by Kaushik Ray
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------  
 
 Lisense
 
