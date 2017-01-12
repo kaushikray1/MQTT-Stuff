@@ -13,15 +13,11 @@ Changes Required in the Code Before Downloading:
   or to use a online free broker like "io.adafruit.com" or Cloud MQTT 
 
 Hardware requirement are: 
-  FET driver on pin 12, 14, 16 for driving the LED FET. I used MCP1407 as FET drivers (8 Pin DIP) and  CSD18542KCS for FETS. 
-  These FETS are awesome they run very cold and I am driving 8, 5m meter 5050 RGB LED strips from SUPERNIGHT from Amazon. I love these  
-  LED Strips as they are super bright, brighter than all the other ones I had before. I am providing a link below.  
+  FET driver on pin 12, 14, 16 for driving the LED FET. I used MCP1407 as FET drivers (8 Pin DIP) and  CSD18542KCS for FETS. These FETS are awesome they run very cold at 12v and I am driving 8, 5m meter 5050 RGB LED strips from SUPERNIGHT from Amazon. I also love these LED Strips as they are super bright, brighter than all the other ones I had before. I am providing a link below.  
   https://www.amazon.com/gp/product/B00DTOAWZ2/ref=oh_aui_detailpage_o09_s00?ie=UTF8&psc=1
   I used a 3.3v LDO converting 12v to 3.3v.It gets pretty hot, plan to change it to a switching supply in future. 
-  If you want a push button can be placed between GPIO 1 and ground (its optional for reseting the Node in case a reconfig of the 
-  network settings are required)
-  I used ESP8266-E12 for these projects. All the GPIO's can be changed as per your need, just look for the pin definations at the top 
-  of the code. 
+  If you want a push button can be placed between GPIO 1 and ground (its optional for reseting the Node in case a reconfig of the network settings are required)
+  I used ESP8266-E12 for these projects. All the GPIO's can be changed as per your need, just look for the pin definations at the top of the code. 
 
 Setup After Hardware and software: 
   Step 1:
