@@ -1,6 +1,5 @@
 /*
 *Code by Kaushik Ray
-*Free to use however way you want.. Enjoy
 */
 /*
 The MIT License
@@ -26,21 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-/*
- * You will need 2 libraries "PubSubClient" and "WiFiManager" thanks to them :) 
- * https://github.com/knolleary/pubsubclient
- * https://github.com/tzapu/WiFiManager
- * Hardware requirement are FET drive for pin 12,14,16 for driving the FET to drive RGB LED Strips
- * When the device is programmed it starts up with a soft AP with the name "IoT_Setup" (for more info see WifiManager Help)
- * Connect to the AP and configure the Iot node with SSID and password
- * To Reset the Network config connect a push button to GPIO 1 and Ground. Holding the button at powerup will reset Wifi config file
- * change the MQTT server settings as per your need and you are all set. 
- * A good video to configure MQTT proker on a pi can be found at https://www.youtube.com/watch?v=AsDHEDbyLfg
- * or to use a online fre broker "io.adafruit.com" or Cloud MQTT can be used. 
- * A good Android MQTT app that i like is "MQTT Dash" can be found at Google Play. Its a free app with no adds.. 
- * Enjoy the Free software...
- */
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
