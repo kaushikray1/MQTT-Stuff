@@ -25,12 +25,12 @@ THE SOFTWARE.
 
 void manage_WiFi()
 {
-  pinMode(Reset_Pin, INPUT);
+  
   //WiFiManager
-  //Local intialization. Once its business is done, there is no need to keep it around
+  //Local intialization of the wifi manager
   WiFiManager wifiManager;
 
-  //reset settings - if GPIO 0 is pressed at startup
+  //reset settings - if GPIO 1 is pressed at startup
   delay(1000);
   digitalRead(Reset_Pin);
   if(digitalRead(Reset_Pin) == LOW )
@@ -51,7 +51,7 @@ void manage_WiFi()
   //if it does not connect it starts an access point with the specified name
   //here  "AutoConnectAP"
   //and goes into a blocking loop awaiting configuration
-  if (!wifiManager.autoConnect("IoT_Setup")) {
+  if (!wifiManager.autoConnect("IoT_Setup1")) {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
     //reset and try again, or maybe put it to deep sleep
@@ -65,7 +65,7 @@ void manage_WiFi()
 //------------------------------------------------------------------------------------------------------------------------------------------
 void manage_OTA()
 {
-  ArduinoOTA.setHostname("LED-1");
+  ArduinoOTA.setHostname("LED-2");
   ArduinoOTA.onStart([]() {
     Serial.println("Start");
   });

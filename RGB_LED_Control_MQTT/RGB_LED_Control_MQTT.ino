@@ -35,18 +35,18 @@ THE SOFTWARE.
 #define LED_RED     14
 #define LED_GREEN   12
 #define LED_BLUE    16
+#define Reset_Pin    4                  //pin to reset the wifi config files
 
 //MQTT Server Config
 IPAddress mqtt_server(192, 168, 1, 68); //MQTT Broker IP
-const char* Client_ID    = "Unique_client_ID";
+const char* Client_ID    = "testledb";
 const char* username     = "username";
-const char* password     = "password";
+const char* password     = "geforce4";
 const char* thing_name   = "thing_name";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-#define Reset_Pin 1                         //pin to reset the wifi config files
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 void setup() {
@@ -54,7 +54,8 @@ void setup() {
   pinMode(LED_RED,    OUTPUT);
   pinMode(LED_GREEN,  OUTPUT);
   pinMode(LED_BLUE,   OUTPUT);
-  pinMode(LED_BUILTIN, OUTPUT);
+  //pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(Reset_Pin, INPUT_PULLUP);
 
   digitalWrite(LED_RED,     0);
   digitalWrite(LED_GREEN,   0);
@@ -64,8 +65,9 @@ void setup() {
   analogWriteRange(255);
 
   Serial.begin(115200);
-  manage_OTA();
+  Serial.println("Hello World");
   manage_WiFi();
+  manage_OTA();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
 }
