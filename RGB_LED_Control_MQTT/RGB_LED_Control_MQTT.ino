@@ -65,7 +65,7 @@ void setup() {
   analogWriteRange(255);
 
   Serial.begin(115200);
-  Serial.println("Hello World");
+  Serial.println("v1.0.01");
   manage_WiFi();
   manage_OTA();
   client.setServer(mqtt_server, 1883);
