@@ -6,6 +6,18 @@ Required Libraries:
 
 Changes Required in the Code Before Downloading: 
   Change the MQTT server settings as per your need at the top of the code.
+  
+  Line 41 to 45
+  //MQTT Server Config
+  IPAddress mqtt_server(192, 168, 1, 68); //MQTT Broker IP
+  const char* Client_ID    = "unique_client_name";
+  const char* username     = "username";
+  const char* password     = "password";
+  const char* thing_name   = "thing_name";
+  
+  Line 71
+  client.setServer(mqtt_server, 1883);
+  
   A good video to configure MQTT broker on a Raspberry pi can be found at 
   https://www.youtube.com/watch?v=AsDHEDbyLfg 
   or to use a online free broker like "io.adafruit.com" or Cloud MQTT 
@@ -21,7 +33,7 @@ Setup After Hardware and software:
   Step 1:
   When the device is programmed it starts up with a Soft AP with the name "IoT_Setup" (for more info see WifiManager Help)
   Connect to the AP and configure the Iot node with SSID and password.
-  To Reset the Network config connect a push button to GPIO 1 and Ground. Holding the button at powerup will reset Wifi config file.
+  To Reset the Network config connect a push button to GPIO 4 and Ground. Holding the button at powerup will reset Wifi config file.
 
   A good Android MQTT app that I like and use is "MQTT Dash" can be found at Google Play. Its a free app with no adds.. Thanks to the Author
   
