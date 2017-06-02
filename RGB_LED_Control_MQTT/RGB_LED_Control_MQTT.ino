@@ -38,10 +38,10 @@ THE SOFTWARE.
 #define Reset_Pin    4                  //pin to reset the wifi config files
 
 //MQTT Server Config
-IPAddress mqtt_server(192, 168, 1, 68); //MQTT Broker IP
+IPAddress mqtt_server(192, 168, 1, 2); //MQTT Broker IP
 const char* Client_ID    = "testledb";
 const char* username     = "username";
-const char* password     = "geforce4";
+const char* password     = "password";
 const char* thing_name   = "thing_name";
 
 WiFiClient espClient;
